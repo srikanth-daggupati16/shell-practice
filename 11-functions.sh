@@ -1,34 +1,28 @@
 #!/bin/bash
 
 USERID=$(id -u)
+
 if [$USERID -ne 0]; then
   echo "please enter root user access to run this script"
     exit 1
+fi
+
+VALIDATE(){
+    if [ $1 -ne 0 ]; then
+      echo "$2 installation failed"
+        exit 1
+    else
+      echo "$2 is installed successfully"
     fi
-
-echo "installinf nginx"
+}
+echo "installing nginx"
   dnf install nginx -y
-if [$? -ne 0]; then
-  echo "nginx inxtallation failed"
-    exit 1
-else
-   echo " nginx is installed successfully"
-   fi
+  VALIDATE $? "installing nginx"
 
-   echo "installinf MySQL"
-  dnf install mysql -y
-if [$? -ne 0]; then
-  echo "MySQL installation failed"
-    exit 1
-else
-   echo " MySQL is installed successfully"
-   fi
+echo "installing mysql"
+dnf install mysql -y
+VALIDATE $? "installing mysql"
 
-   echo "installinf nodejs"
-  dnf install nodejs -y
-if [$? -ne 0]; then
-  echo "nodejs installation failed"
-    exit 1
-else
-   echo " nodejs is installed successfully"
-   fi
+echo "installing nodejs"
+dnf install nodejs -y
+VALIDATE $? "installing nodejs"
