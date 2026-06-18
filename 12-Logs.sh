@@ -1,6 +1,6 @@
 USERID=$(id -u)
 LOGS_FOLDER="/var/logs/shell-script/"
-LOGs_FILE="/var/logs/shell-script/$0.Log"
+LOGS_FILE="/var/logs/shell-script/$0.Log"
 
 if [$USERID -ne 0]; then
   echo "please enter root user access to run this script"
@@ -19,13 +19,13 @@ VALIDATE(){
 mkdir -p $LOGS_FOLDER
 
 echo "installing nginx"
-dnf install nginx -y
+dnf install nginx -y &>> $LOGS_FILE
 VALIDATE $? "installing nginx"
 
 echo "installing mysql"
-dnf install mysql -y
+dnf install mysql -y &>> $LOGS_FILE
 VALIDATE $? "installing mysql"
 
 echo "installing nodejs"
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGS_FILE
 VALIDATE $? "installing nodejs"
